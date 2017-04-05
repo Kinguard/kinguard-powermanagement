@@ -1,0 +1,13 @@
+Source: kinguard-powerupdown
+Section: devel
+Priority: optional
+Maintainer: PA Nilsson <pa@openproducts.se>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.4
+
+Package: kinguard-powerupdown
+Architecture: all
+Depends: ${misc:Depends}
+Conflicts:
+Description: Handler for power up/down functions such as enable pins and LED indication
+

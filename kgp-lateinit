@@ -1,0 +1,42 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:        kgp-lateinit
+# Required-Start:  $local_fs
+# Required-Stop: 
+# Default-Start:     2
+# Default-Stop:      0
+# Short-Description: Late init for control signal and LEDs
+# Description: 
+### END INIT INFO
+
+# Author: PA Nilsson <pa@openproducts.se>
+
+
+do_start() {
+	echo "timer" > /sys/class/leds/blue/trigger
+	echo "0" > /sys/class/leds/green/brightness
+	echo "0" > /sys/class/leds/red/brightness
+}
+
+do_stop() {
+	echo "Enable power down signal"
+	echo "41" > /sys/class/gpio/export
+	echo "high" > /sys/class/gpio/gpio41/direction
+}
+
+case "$1" in
+    start)
+        do_start
+        ;;
+    stop)
+        do_stop
+        ;;
+    restart|reload|force-reload)
+        echo "Error: argument '$1' not supported" >&2
+        exit 3
+        ;;
+    *)
+        echo "Usage: $0 start|stop" >&2
+        exit 3
+        ;;
+esac

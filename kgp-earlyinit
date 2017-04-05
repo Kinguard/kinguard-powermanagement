@@ -1,0 +1,42 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:        kgp-earlyinit
+# Required-Start:  $local_fs
+# Required-Stop: 
+# Default-Start:     0 1 2
+# Default-Stop:      2
+# Short-Description: Early init for control signal and LEDs
+# Description: 
+### END INIT INFO
+
+# Author: PA Nilsson <pa@openproducts.se>
+
+
+do_start() {
+	echo "heartbeat" > /sys/class/leds/blue/trigger
+	echo "0" > /sys/class/leds/green/brightness
+	echo "0" > /sys/class/leds/red/brightness
+}
+
+do_stop() {
+	echo "heartbeat" > /sys/class/leds/blue/trigger
+	echo "0" > /sys/class/leds/green/brightness
+	echo "0" > /sys/class/leds/red/brightness
+}
+
+case "$1" in
+    start)
+        do_start
+        ;;
+    stop)
+        do_stop
+        ;;
+    restart|reload|force-reload)
+        echo "Error: argument '$1' not supported" >&2
+        exit 3
+        ;;
+    *)
+        echo "Usage: $0 start|stop" >&2
+        exit 3
+        ;;
+esac
