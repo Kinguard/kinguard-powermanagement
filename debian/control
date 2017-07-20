@@ -7,7 +7,7 @@ Standards-Version: 3.9.4
 
 Package: kinguard-powerupdown
 Architecture: all
-Depends: ${misc:Depends}, kinguard-utils
+Depends: ${misc:Depends}, kinguard-utils, insserv
 Conflicts:
 Description: Handler for power up/down functions such as enable pins and LED indication
 

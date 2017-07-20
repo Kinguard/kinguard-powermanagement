@@ -16,7 +16,9 @@ do_start() {
 	modprobe ledtrig-timer
 	#insert the led trigger for 'heartbeat'
 	modprobe ledtrig-heartbeat
-		
+
+	kgp-notifier -s  # Clean up any non-persistant messages
+	
 	msgid=`kgp-notifier -l "LOG_INFO" -m "Starting init scripts" -i "sysctrl"`
 	if [ $? -eq 0 ]; then
 		echo -n $msgid > /tmp/bootmsg.id
