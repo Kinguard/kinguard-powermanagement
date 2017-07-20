@@ -11,17 +11,20 @@
 
 # Author: PA Nilsson <pa@openproducts.se>
 
-
 do_start() {
-	echo "heartbeat" > /sys/class/leds/blue/trigger
-	echo "0" > /sys/class/leds/green/brightness
-	echo "0" > /sys/class/leds/red/brightness
+	#insert the led trigger for 'timer'
+	modprobe ledtrig-timer
+	#insert the led trigger for 'heartbeat'
+	modprobe ledtrig-heartbeat
+		
+	msgid=`kgp-notifier -l "LOG_INFO" -m "Starting init scripts" -i "sysctrl"`
+	if [ $? -eq 0 ]; then
+		echo -n $msgid > /tmp/bootmsg.id
+	fi
 }
 
 do_stop() {
-	echo "heartbeat" > /sys/class/leds/blue/trigger
-	echo "0" > /sys/class/leds/green/brightness
-	echo "0" > /sys/class/leds/red/brightness
+	kgp-notifier -l "LOG_NOTICE" -m "Shutting down" -i "sysctrl"
 }
 
 case "$1" in

@@ -11,17 +11,20 @@
 
 # Author: PA Nilsson <pa@openproducts.se>
 
-
 do_start() {
-	echo "timer" > /sys/class/leds/blue/trigger
-	echo "0" > /sys/class/leds/green/brightness
-	echo "0" > /sys/class/leds/red/brightness
+	# Acknowledge the boot msg
+	msgid=`cat /tmp/bootmsg.id`
+	kgp-notifier -a $msgid
 }
 
 do_stop() {
-	echo "Enable power down signal"
-	echo "41" > /sys/class/gpio/export
-	echo "high" > /sys/class/gpio/gpio41/direction
+	kgp-sysinfo -t -p | grep -q "Armada"
+	if [ $? -eq 0 ]; then
+		# system is KEEP
+		echo "Enable power down signal"
+		echo "41" > /sys/class/gpio/export
+		echo "high" > /sys/class/gpio/gpio41/direction
+	fi
 }
 
 case "$1" in
