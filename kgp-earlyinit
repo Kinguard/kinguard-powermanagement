@@ -3,9 +3,10 @@
 # Provides:        kgp-earlyinit
 # Required-Start:  $local_fs
 # Required-Stop: 
-# Default-Start:     0 1 2
-# Default-Stop:      2
+# Default-Start:     2
+# Default-Stop:      0 1
 # Short-Description: Early init for control signal and LEDs
+# X-Start-Before:  opi-control
 # Description: 
 ### END INIT INFO
 
@@ -26,7 +27,16 @@ do_start() {
 }
 
 do_stop() {
-	kgp-notifier -l "LOG_NOTICE" -m "Shutting down" -i "sysctrl"
+	# execution order is reversed when shutting down, so this will be
+	# done late in the shutdown process
+
+	kgp-sysinfo -t -p | grep -q "Armada"
+	if [ $? -eq 0 ]; then
+		# system is KEEP
+		echo "Enable power down signal"
+		echo "41" > /sys/class/gpio/export
+		echo "high" > /sys/class/gpio/gpio41/direction
+	fi
 }
 
 case "$1" in

@@ -1,10 +1,11 @@
 #! /bin/sh
 ### BEGIN INIT INFO
 # Provides:        kgp-lateinit
-# Required-Start:  $all
-# Required-Stop: 
+# Required-Start:  
+# Should-Start:    opi-control
+# Required-Stop:
 # Default-Start:     2
-# Default-Stop:      0
+# Default-Stop:      0 1
 # Short-Description: Late init for control signal and LEDs
 # Description: 
 ### END INIT INFO
@@ -13,18 +14,21 @@
 
 do_start() {
 	# Acknowledge the boot msg
-	msgid=`cat /tmp/bootmsg.id`
-	kgp-notifier -a $msgid
+	idfile="/tmp/bootmsg.id"
+	if [ -e $idfile ]; then
+		msgid=`cat $idfile`
+		kgp-notifier -a $msgid
+	else
+		echo "WARN: Missing id file"
+	fi
+
 }
 
 do_stop() {
-	kgp-sysinfo -t -p | grep -q "Armada"
-	if [ $? -eq 0 ]; then
-		# system is KEEP
-		echo "Enable power down signal"
-		echo "41" > /sys/class/gpio/export
-		echo "high" > /sys/class/gpio/gpio41/direction
-	fi
+	# execution order is reversed when shutting down, so this will be
+	# done early in the shutdown process
+	
+	kgp-notifier -l "LOG_NOTICE" -m "Shutting down" -i "sysctrl"
 }
 
 case "$1" in
