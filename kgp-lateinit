@@ -2,8 +2,8 @@
 ### BEGIN INIT INFO
 # Provides:        kgp-lateinit
 # Required-Start:  
-# Should-Start:    opi-control
 # Required-Stop:
+# Should-Start:		opi_dnsupdate
 # Default-Start:     2
 # Default-Stop:      0 1
 # Short-Description: Late init for control signal and LEDs
