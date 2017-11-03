@@ -5,7 +5,7 @@
 # Required-Stop: 
 # Default-Start:     2
 # Default-Stop:      0 1
-# Short-Description: Early init for control signal and LEDs
+# Short-Description: kgp power managemant related
 # X-Start-Before:  opi-control
 # Description: 
 ### END INIT INFO
@@ -18,12 +18,6 @@ do_start() {
 	#insert the led trigger for 'heartbeat'
 	modprobe ledtrig-heartbeat
 
-	kgp-notifier -s  # Clean up any non-persistant messages
-	
-	msgid=`kgp-notifier -l "LOG_INFO" -m "Starting init scripts" -i "sysctrl"`
-	if [ $? -eq 0 ]; then
-		echo -n $msgid > /tmp/bootmsg.id
-	fi
 }
 
 do_stop() {

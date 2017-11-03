@@ -1,5 +1,5 @@
 #!/bin/sh
-# postinst script for kinguard-powerupdown
+# postinst script for kinguard-powermanagement
 #
 # see: dh_installdeb(1)
 
