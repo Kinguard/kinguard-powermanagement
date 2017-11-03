@@ -21,7 +21,6 @@ set -e
 case "$1" in
     configure)
 		update-rc.d kgp-earlyinit defaults 01 01
-		update-rc.d kgp-lateinit defaults 89 89
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
