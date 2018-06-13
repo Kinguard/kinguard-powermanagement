@@ -1,0 +1,4 @@
+#! /bin/sh
+
+/usr/sbin/kgp-notifier -l "LOG_NOTICE" -m "Shutting down" -i "sysctrl"
+

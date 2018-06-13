@@ -1,3 +1,10 @@
+kinguard-powermanagement (1.3) vili; urgency=medium
+
+  * Update to not use sysv boot, use kinguard scripts instead
+  * Add modules to modules-conf instead of manual load
+
+ -- Tor Krill <tor@openproducts.se>  Wed, 13 Jun 2018 16:24:19 +0200
+
 kinguard-powermanagement (1.2) vili; urgency=medium
 
   * Removed reference in postinst to "lateinit" 
