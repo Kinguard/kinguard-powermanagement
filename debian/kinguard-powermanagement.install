@@ -1,3 +1,2 @@
 op-modules.conf		/etc/modules-load.d/
 scripts/shutdown-early/kgpnotifier	/etc/kinguard/scripts/shutdown-early/
-scripts/shutdown-late/keepshutdown	/etc/kinguard/scripts/shutdown-late/
